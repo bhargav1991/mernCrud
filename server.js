@@ -34,7 +34,7 @@ app.use((err, req, res, next) => {
 
 if (isProduction()) {
     app.use(express.static('frontend/build'));
-    app.get("*", function (req, res) {
+    app.get("/", function (req, res) {
         res.sendFile(path.resolve(__dirname,'frontend','build','index.html'))
     });
 }else{
@@ -42,6 +42,10 @@ if (isProduction()) {
         res.status(200).send("Welcome");
     });
 }
+
+app.get("*",function(req,res){
+    res.status(404).send("Page NOT FOUND");
+})
 
 app.listen(port, () => {
     console.log(`Listening @${port}`);
